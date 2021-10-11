@@ -1,3 +1,4 @@
+const { USER_ROLE } = require('../utils/constant');
 const { encrypt } = require('../utils/encryption');
 
 module.exports = {
@@ -17,6 +18,7 @@ module.exports = {
         email: 'admin@admin.com',
         firstName: "I'm",
         lastName: 'Admin',
+        role: USER_ROLE.ADMIN,
         password: await encrypt('admin'),
       },
     ]);
