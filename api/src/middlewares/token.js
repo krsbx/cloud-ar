@@ -12,13 +12,15 @@ exports.loginMw = async (req, res) => {
     const isMatch = await encryption.compare(req.body.password, user.password);
     if (!isMatch) return res.status(400).json({ message: 'Wrong password!' });
 
-    console.log(_.pick(user, ['id']));
+    const newToken = token.generateToken(_.pick(user, ['id']));
 
-    const accessToken = token.signAccessToken(_.pick(user, ['id']));
-    const refreshToken = token.signRefreshToken(_.pick(user, ['id']));
-
-    return res.json({ token: accessToken, refreh: refreshToken, id: user.id });
+    return res.json({
+      token: newToken.accessToken,
+      refreh: newToken.refreshToken,
+      id: user.id,
+    });
   } catch (err) {
+    console.log(err);
     return res.status(400).json({ message: 'Wrong credentials!' });
   }
 };
@@ -34,12 +36,11 @@ exports.generateNewTokenMw = async (req, res) => {
 
       const { id } = payload;
 
-      const accessToken = token.signAccessToken({ id });
-      const refreshToken = token.signRefreshToken({ id });
+      const newToken = token.generateToken({ id });
 
       return res.json({
-        token: accessToken,
-        refreh: refreshToken,
+        token: newToken.accessToken,
+        refreh: newToken.refreshToken,
         id,
       });
     });
