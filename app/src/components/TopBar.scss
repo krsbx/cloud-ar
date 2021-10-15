@@ -1,0 +1,15 @@
+@import '../utils/variables.scss';
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: $teal;
+  height: 4rem;
+
+  .left-side {
+    margin-left: 1rem;
+    font-weight: 700;
+    font-size: 24px;
+  }
+}
