@@ -16,7 +16,7 @@ exports.loginMw = async (req, res) => {
 
     return res.json({
       token: newToken.accessToken,
-      refreh: newToken.refreshToken,
+      refresh: newToken.refreshToken,
       id: user.id,
     });
   } catch (err) {
@@ -40,7 +40,7 @@ exports.generateNewTokenMw = async (req, res) => {
 
       return res.json({
         token: newToken.accessToken,
-        refreh: newToken.refreshToken,
+        refresh: newToken.refreshToken,
         id,
       });
     });

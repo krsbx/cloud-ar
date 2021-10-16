@@ -9,13 +9,23 @@ import Button from 'react-bootstrap/Button';
 import * as Yup from 'yup';
 import _ from 'lodash';
 import './LoginPage.scss';
+import { connect } from 'react-redux';
+import { login as _login } from '../../store/actions/resources';
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().email().required('Email is required'),
   password: Yup.string().required('Password is required'),
 });
 
-const LoginPage = () => {
+const LoginPage = ({ login }) => {
+  const loginRequest = async (payload) => {
+    try {
+      await login(payload);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Container className={'login-container'}>
       <Formik
@@ -24,6 +34,7 @@ const LoginPage = () => {
           password: '',
         }}
         validationSchema={loginSchema}
+        onSubmit={loginRequest}
       >
         {({
           values,
@@ -86,4 +97,6 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default connect(null, {
+  login: _login,
+})(LoginPage);

@@ -27,7 +27,7 @@ exports.getUserMw = async (req, res, next) => {
   try {
     const { userAuth } = req;
 
-    if (userAuth.roles !== USER_ROLE.ADMIN && userAuth.id !== req.params.id)
+    if (userAuth.role !== USER_ROLE.ADMIN && userAuth.id !== req.params.id)
       return res.status(401).json({ message: 'Unauthorized!' });
 
     const user = await repository.user.findOne(req.params.id);
@@ -45,7 +45,7 @@ exports.getUsersMw = async (req, res, next) => {
   try {
     const { userAuth } = req;
 
-    if (userAuth.roles !== USER_ROLE.ADMIN)
+    if (userAuth.role !== USER_ROLE.ADMIN)
       return res.status(401).json({ message: 'Unauthorized!' });
 
     const users = await repository.user.findAll(
