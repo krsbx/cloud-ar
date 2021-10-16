@@ -6,16 +6,11 @@ import FormLabel from 'react-bootstrap/FormLabel';
 import FormGroup from 'react-bootstrap/FormGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
-import * as Yup from 'yup';
+import { loginSchema } from '../../utils/formSchema';
 import _ from 'lodash';
 import './LoginPage.scss';
 import { connect } from 'react-redux';
 import { login as _login } from '../../store/actions/resources';
-
-const loginSchema = Yup.object().shape({
-  email: Yup.string().email().required('Email is required'),
-  password: Yup.string().required('Password is required'),
-});
 
 const LoginPage = ({ login }) => {
   const loginRequest = async (payload) => {
