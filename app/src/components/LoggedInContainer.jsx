@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
 import TopBar from './TopBar';
 import { getAllData as _getAllData } from '../store/actions/resources';
+import { getUserData as _getUserData } from '../store/actions/user';
 import { getCurrentUser } from '../store/selectors/user';
 import { connect } from 'react-redux';
 import { RESOURCE_NAME } from '../store/reducers/resources';
 import { isAuthenticated } from '../utils/user';
 
-const LoggedInContainer = ({ children, getAllData, user }) => {
-  console.log(user);
-
+const LoggedInContainer = ({ children, getAllData, getUserData, user }) => {
   useEffect(() => {
-    if (isAuthenticated) getAllData(RESOURCE_NAME.MARKERS, 'limit=all');
+    if (isAuthenticated) {
+      getUserData();
+      getAllData(RESOURCE_NAME.MARKERS, 'limit=all');
+    }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -31,4 +33,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getAllData: _getAllData,
+  getUserData: _getUserData,
 })(LoggedInContainer);

@@ -1,4 +1,5 @@
 import axios from '../../utils/axios';
+import { SET_CURRENT_USER } from '../reducers/user';
 
 export const login = (payload) => async (dispatch) => {
   try {
@@ -9,10 +10,24 @@ export const login = (payload) => async (dispatch) => {
     localStorage.setItem('id', data.id);
 
     //Get current user data
-    const { data: currentUser } = await axios.get(`/users/${data.id}`);
+    const { data: user } = await axios.get(`/users/${data.id}`);
 
-    console.log(currentUser);
+    return dispatch({
+      type: SET_CURRENT_USER,
+      data: user,
+    });
   } catch (err) {
     throw err;
   }
+};
+
+export const getUserData = () => async (dispatch) => {
+  const id = window.localStorage.getItem('id');
+
+  const { data: user } = await axios.get(`/users/${id}`);
+
+  return dispatch({
+    type: SET_CURRENT_USER,
+    data: user,
+  });
 };
