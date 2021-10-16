@@ -10,7 +10,7 @@ import { loginSchema } from '../../utils/formSchema';
 import _ from 'lodash';
 import './LoginPage.scss';
 import { connect } from 'react-redux';
-import { login as _login } from '../../store/actions/resources';
+import { login as _login } from '../../store/actions/user';
 
 const LoginPage = ({ login }) => {
   const loginRequest = async (payload) => {
