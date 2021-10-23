@@ -11,7 +11,7 @@ import { isAuthenticated, checkExpires } from '../utils/user';
 const PrivateContainer = ({ children, getAllData, getUserData, user }) => {
   const history = useHistory();
 
-  if (!checkExpires) {
+  if (!checkExpires()) {
     history.push('/');
   }
 
