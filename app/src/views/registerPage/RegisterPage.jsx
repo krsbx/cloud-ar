@@ -6,13 +6,13 @@ import FormLabel from 'react-bootstrap/FormLabel';
 import FormGroup from 'react-bootstrap/FormGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
-import { registerSchema } from '../../utils/formSchema';
+import { registerSchema } from 'utils/formSchema';
 import _ from 'lodash';
-import './RegisterPage.scss';
+import styles from './RegisterPage.module.scss';
 
 const RegsiterPage = () => {
   return (
-    <Container className={'register-container'}>
+    <Container className={styles['register-container']}>
       <Formik
         initialValues={{
           email: '',
@@ -36,7 +36,7 @@ const RegsiterPage = () => {
               e.preventDefault();
               handleSubmit();
             }}
-            className={'register-form'}
+            className={styles['register-form']}
           >
             <h1 className={'text-center'}>REGISTER</h1>
             <FormGroup>

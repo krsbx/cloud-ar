@@ -1,14 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import './App.scss';
-import NotFoundPage from './views/NotFoundPage';
-import HomePage from './views/homePage/HomePage';
-import LoginPage from './views/loginPage/LoginPage';
-import RegsiterPage from './views/registerPage/RegisterPage';
-import DashboardPage from './views/dashboardPage/DashboardPage';
-import PrivateContainer from './components/PrivateContainer';
+import 'App.scss';
+import NotFoundPage from 'views/NotFoundPage';
+import HomePage from 'views/homePage/HomePage';
+import LoginPage from 'views/loginPage/LoginPage';
+import RegsiterPage from 'views/registerPage/RegisterPage';
+import DashboardPage from 'views/dashboardPage/DashboardPage';
+import { MarkerPage, CreateMarkerPage } from 'views/markerPage';
+import PrivateContainer from 'components/PrivateContainer';
 import { Provider } from 'react-redux';
-import store from './store';
+import store from 'store';
 
 const App = () => {
   return (
@@ -19,7 +20,9 @@ const App = () => {
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegsiterPage} />
           <PrivateContainer>
-            <Route path="/dashboard" component={DashboardPage} />
+            <Route exact path="/dashboard" component={DashboardPage} />
+            <Route exact path="/marker" component={MarkerPage} />
+            <Route exact path="/marker/create" component={CreateMarkerPage} />
           </PrivateContainer>
           <Route path="*" component={NotFoundPage} />
         </Switch>

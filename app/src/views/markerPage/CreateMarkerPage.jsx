@@ -10,7 +10,7 @@ import _ from 'lodash';
 import classnames from 'classnames';
 import FileFeedback from 'components/FileFeedback';
 
-export const DashboardPage = () => {
+export const CreateMarkerPage = () => {
   return (
     <Formik
       initialValues={{
@@ -111,4 +111,4 @@ export const DashboardPage = () => {
   );
 };
 
-export default DashboardPage;
+export default CreateMarkerPage;
