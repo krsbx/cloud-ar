@@ -4,6 +4,7 @@ import { combineReducers } from 'redux';
 export const RESOURCE_NAME = {
   USERS: 'users',
   MARKERS: 'markers',
+  STORAGE: 'storage',
 };
 
 const reducer =

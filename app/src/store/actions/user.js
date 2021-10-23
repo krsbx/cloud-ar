@@ -1,7 +1,7 @@
 import axios from '../../utils/axios';
-import { SET_CURRENT_USER } from '../reducers/user';
+import { SET_USER } from '../reducers/user';
 
-export const login = (payload) => async (dispatch) => {
+export const login = (payload, updateLogin) => async (dispatch) => {
   try {
     const { data } = await axios.post('/users/login', payload);
 
@@ -12,8 +12,16 @@ export const login = (payload) => async (dispatch) => {
     //Get current user data
     const { data: user } = await axios.get(`/users/${data.id}`);
 
+    dispatch({
+      type: 'resources.storage.set',
+      payload: {
+        id: 'access',
+        data: 'granted',
+      },
+    });
+
     return dispatch({
-      type: SET_CURRENT_USER,
+      type: SET_USER,
       data: user,
     });
   } catch (err) {
@@ -27,7 +35,7 @@ export const getUserData = () => async (dispatch) => {
   const { data: user } = await axios.get(`/users/${id}`);
 
   return dispatch({
-    type: SET_CURRENT_USER,
+    type: SET_USER,
     data: user,
   });
 };
