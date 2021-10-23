@@ -1,18 +1,9 @@
 import React from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
-import { isAuthenticated } from 'utils/user';
 import styles from './HomePage.module.scss';
 
 const HomePage = () => {
-  const history = useHistory();
-
-  if (isAuthenticated) {
-    history.push('/dashboard');
-
-    return null;
-  }
-
   return (
     <Container className={styles['home-container']}>
       <div className={styles['home-selections']}>
