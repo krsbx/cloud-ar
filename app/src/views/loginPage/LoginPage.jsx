@@ -11,11 +11,16 @@ import _ from 'lodash';
 import './LoginPage.scss';
 import { connect } from 'react-redux';
 import { login as _login } from '../../store/actions/user';
+import { useHistory } from 'react-router-dom';
 
 const LoginPage = ({ login }) => {
+  const history = useHistory();
+
   const loginRequest = async (payload) => {
     try {
       await login(payload);
+
+      history.push('/dashboard');
     } catch (err) {
       console.log(err);
     }

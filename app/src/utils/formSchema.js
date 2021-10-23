@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import validator from './validator';
 import { regexPassword } from './regexScehema';
 
 export const registerSchema = Yup.object().shape({
@@ -19,4 +20,23 @@ export const registerSchema = Yup.object().shape({
 export const loginSchema = Yup.object().shape({
   email: Yup.string().email().required('Email is required'),
   password: Yup.string().required('Password is required'),
+});
+
+export const markerSchema = Yup.object().shape({
+  name: Yup.string().required('Marker name is required for identifying'),
+  width: Yup.string()
+    .required('Marker width is required for generating marker')
+    .test('markerWidth', 'Marker width must a number', (width) =>
+      validator.isNumber(width)
+    ),
+  marker: Yup.mixed()
+    .required('Marker image is required for scanning')
+    .test('marker', 'Marker image is not valid', (marker) =>
+      validator.isImage(marker)
+    ),
+  metadata: Yup.string().test(
+    'markerMetadata',
+    'Metadata is not a valid JSON object',
+    (metadata) => validator.isJson(metadata, true)
+  ),
 });

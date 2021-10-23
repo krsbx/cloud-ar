@@ -6,7 +6,7 @@ import HomePage from './views/homePage/HomePage';
 import LoginPage from './views/loginPage/LoginPage';
 import RegsiterPage from './views/registerPage/RegisterPage';
 import DashboardPage from './views/dashboardPage/DashboardPage';
-import LoggedInContainer from './components/LoggedInContainer';
+import PrivateContainer from './components/PrivateContainer';
 import { Provider } from 'react-redux';
 import store from './store';
 
@@ -18,9 +18,9 @@ const App = () => {
           <Route exact path="/" component={HomePage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegsiterPage} />
-          <LoggedInContainer>
+          <PrivateContainer>
             <Route path="/dashboard" component={DashboardPage} />
-          </LoggedInContainer>
+          </PrivateContainer>
           <Route path="*" component={NotFoundPage} />
         </Switch>
       </Router>
