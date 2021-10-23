@@ -1,33 +1,32 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import 'App.scss';
-import NotFoundPage from 'views/NotFoundPage';
-import HomePage from 'views/homePage/HomePage';
-import LoginPage from 'views/loginPage/LoginPage';
-import RegsiterPage from 'views/registerPage/RegisterPage';
-import DashboardPage from 'views/dashboardPage/DashboardPage';
-import { MarkerPage, CreateMarkerPage } from 'views/markerPage';
+import RoutesHandler from 'components/RoutesHandler';
+import publicRoutes from 'utils/routes/public';
+import privateRoutes from 'utils/routes/private';
+import PublicContainer from 'components/PublicContainer';
+import ProtectedContainer from 'components/ProtectedContainer';
 import PrivateContainer from 'components/PrivateContainer';
-import { Provider } from 'react-redux';
-import store from 'store';
+import useLocalStorage from 'utils/useLocalStorage';
 
 const App = () => {
+  const [isLogin] = useLocalStorage();
+
   return (
-    <Provider store={store}>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/register" component={RegsiterPage} />
-          <PrivateContainer>
-            <Route exact path="/dashboard" component={DashboardPage} />
-            <Route exact path="/marker" component={MarkerPage} />
-            <Route exact path="/marker/create" component={CreateMarkerPage} />
-          </PrivateContainer>
-          <Route path="*" component={NotFoundPage} />
-        </Switch>
-      </Router>
-    </Provider>
+    <Router>
+      <Switch>
+        <React.Fragment>
+          <PublicContainer isLogin={!!isLogin}>
+            <RoutesHandler routes={publicRoutes} />
+          </PublicContainer>
+          <ProtectedContainer path="/" isLogin={!!isLogin}>
+            <PrivateContainer>
+              <RoutesHandler routes={privateRoutes} />
+            </PrivateContainer>
+          </ProtectedContainer>
+        </React.Fragment>
+      </Switch>
+    </Router>
   );
 };
 
