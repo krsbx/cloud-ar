@@ -7,10 +7,10 @@ import privateRoutes from 'utils/routes/private';
 import PublicContainer from 'components/PublicContainer';
 import ProtectedContainer from 'components/ProtectedContainer';
 import PrivateContainer from 'components/PrivateContainer';
-import useLocalStorage from 'utils/useLocalStorage';
+import { useLocalStorage } from 'utils/useStorage';
 
 const App = () => {
-  const [isLogin] = useLocalStorage();
+  const [isLogin] = useLocalStorage('access_token');
 
   return (
     <Router>
